@@ -1,0 +1,28 @@
+.control {
+  padding-top: 1em;
+}
+
+.row {
+  align-items: center;
+}
+
+.row input {
+  margin-left: 1rem;
+}
+
+select.custom-select {
+  width: auto;
+}
+
+.custom-control-input,
+.custom-control-label,
+.custom-select,
+.fa-sort,
+.fa-sort-up,
+.fa-sort-down {
+  cursor: pointer;
+}
+
+.paging-detail {
+  padding-top: 0.5rem;
+}

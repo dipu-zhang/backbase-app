@@ -1,0 +1,70 @@
+<div *ngIf='isValidDataFile === false' class='alert alert-danger'>
+    Please choose a .csv file.
+</div>
+<div *ngIf='isValidDataFile'>
+    <div class='control custom-control custom-checkbox'>
+        <input #fileHasHeader type='checkbox' checked class='custom-control-input' id='fileHasHeader'
+            name='fileHasHeader' (change)='changeFileHasHeader(fileHasHeader.checked)'>
+        <label class='custom-control-label' for='fileHasHeader'>File has header</label>
+    </div>
+    <div class='control row'>
+        <div class='col-md-4'>
+            Show
+            <select #rowsPerPageSelect id='rowsPerPage' name='rowsPerPage' class='custom-select custom-select-sm'
+                [value]='rowsPerPage' (change)='changeRowsPerPage(rowsPerPageSelect.value)'>
+                <option value='10'>10</option>
+                <option value='25'>25</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+            </select>
+            entries per page
+        </div>
+        <div *ngIf='fields.indexOf(filterField) !== -1' class='col-md-6 row'>
+            Min issue #
+            <input [(ngModel)]='filterValue' type='range' class='col-md-4 custom-range' id='filterRange' min='0'
+                [max]='filterMax' (change)='changeFilter()'>
+            <input [(ngModel)]='filterValue' type='number' class='col-md-2 form-control form-control-sm'
+                id='filterInput' min=0 [max]='filterMax' (input)='changeFilter()'>
+        </div>
+    </div>
+    <div *ngIf='fields || rows' class='control'>
+        <table class='table table-striped'>
+            <thead class='thead-light'>
+                <tr>
+                    <th *ngFor='let field of fields'>
+                        {{ field }} <i class='fa fa-fw' [ngClass]="{
+                            'fa-sort': field !== sortField,
+                            'fa-sort-up': field === sortField && sortOrder === 1,
+                            'fa-sort-down': field === sortField && sortOrder === -1
+                        }" (click)='sortByField(field)'></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let row of rowsOnCurrentPage'>
+                    <td *ngFor='let column of row | keyvalue: compareFn'>
+                        {{ column.value }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='row'>
+        <div class='col-md-6 paging-detail'>
+            <p>
+                Showing
+                {{ rowsPerPage * (currentPageNum - 1) + 1 }}
+                to
+                {{ rowsPerPage * currentPageNum < filteredRows.length ? rowsPerPage * currentPageNum : filteredRows.length }}
+                of
+                {{ filteredRows.length }}
+                entries
+            </p>
+        </div>
+        <div class='col-md-6'>
+            <pagination [max-size]=10 [page-count]='numberOfPages' [current-page]='currentPageNum'
+                (change)='changePageNum($event)'>
+            </pagination>
+        </div>
+    </div>
+</div>

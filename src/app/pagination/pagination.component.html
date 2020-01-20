@@ -1,0 +1,15 @@
+<nav aria-label='...'>
+    <ul class='pagination'>
+        <li class='page-item' [class.disabled]='currentPage === 1'>
+            <a class='page-link' [tabindex]='currentPage === 1 ? -1 : 0'
+                (click)='changePage(currentPage - 1)'>Previous</a>
+        </li>
+        <li *ngFor='let pageNum of generatePagesArray()' class='page-item' [class.active]='pageNum === currentPage'>
+            <a class='page-link' (click)='changePage(pageNum)'>{{ pageNum }}</a>
+        </li>
+        <li class='page-item' [class.disabled]='currentPage === totalPageCount'>
+            <a class='page-link' [tabindex]='currentPage === totalPageCount ? -1 : 0'
+                (click)='changePage(currentPage + 1)'>Next</a>
+        </li>
+    </ul>
+</nav>

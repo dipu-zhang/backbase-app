@@ -1,0 +1,5 @@
+
+input[type=file], /* FF, IE7+ */
+input[type=file]::-webkit-file-upload-button { /* Chrome */
+    cursor: pointer; 
+}

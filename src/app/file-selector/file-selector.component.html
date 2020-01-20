@@ -1,0 +1,10 @@
+<div class='input-group'>
+    <div class='input-group-prepend'>
+        <span class='input-group-text' id='inputFileUpload'>Upload</span>
+    </div>
+    <div class='custom-file'>
+        <input #fileInput type='file' class='custom-file-input' id='inputFile' aria-describedby='inputFileUpload'
+            (change)='changeInputFile(fileInput)'>
+        <label class='custom-file-label' for='inputFile'>{{ fileName? fileName : 'Choose file' }}</label>
+    </div>
+</div>
